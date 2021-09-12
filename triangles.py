@@ -16,14 +16,19 @@ class TestTriangles(unittest.TestCase):
         self.assertEqual(classify_triangle(1, 5, 1), 'Not a triangle', '(1, 5, 1) is not a valid triangle')
         self.assertEqual(classify_triangle(-1, 0.5, 0.8), 'Not a triangle', '(-1, 0.5, 0.8) is not a valid triangle')
         self.assertEqual(classify_triangle(1, 0.5, 0), 'Not a triangle')
+        self.assertEqual(classify_triangle('a', 'b', 'c'), 'Not a triangle')
+        self.assertEqual(classify_triangle([3, 4, 5], (3, 4, 5), 3), 'Not a triangle')
 
     def test_classify_triangle_intentionalBug(self): # This test fails because python thinks (5*sqrt(2))^2 != 50, example of buggy code
-        self.assertEqual(classify_triangle(5, 5, 5 * math.sqrt(2)), 'Isosceles Right', )
+        self.assertEqual(classify_triangle(5, 5, 5 * math.sqrt(2)), 'Isosceles Right', "(5*sqrt(2))^2 doesn't exactly equal 5^2 + 5^2")
 
 def classify_triangle(a, b, c):
     '''Returns what kind of triangle lengths a, b, and c produce'''
+    def correct_type(var):
+        '''Helper function to check input validity'''
+        return type(var) == int or type(var) == float
 
-    if a <= 0 or b <= 0 or c <= 0 or a + b <= c or a + c <= b or b + c <= a:
+    if not(correct_type(a)) or not(correct_type(b)) or not(correct_type(c)) or a <= 0 or b <= 0 or c <= 0 or a + b <= c or a + c <= b or b + c <= a:
         return "Not a triangle"
 
     triangleType = ''
@@ -43,8 +48,6 @@ def main():
     inputs = [(3,4,5), (2,2,3), (4,4,4), (5,4,5), (-0.5, 2, 3)]
     for input in inputs:
         print(f'{input} is {classify_triangle(input[0], input[1], input[2])}.')
-    x = 5 * math.sqrt(2)
-    print(x**2)
     
     unittest.main(exit=True)
 
