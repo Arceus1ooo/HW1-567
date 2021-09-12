@@ -45,9 +45,9 @@ def classify_triangle(a, b, c):
     return triangleType
 
 def main():
-    inputs = [(3,4,5), (2,2,3), (4,4,4), (5,4,5), (-0.5, 2, 3)]
-    for input in inputs:
-        print(f'{input} is {classify_triangle(input[0], input[1], input[2])}.')
+    #inputs = [(3,4,5), (2,2,3), (4,4,4), (5,4,5), (-0.5, 2, 3)]
+    #for input in inputs:
+    #    print(f'{input} is {classify_triangle(input[0], input[1], input[2])}.')
     
     unittest.main(exit=True)
 
